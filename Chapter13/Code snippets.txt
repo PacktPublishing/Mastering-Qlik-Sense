@@ -1,0 +1,903 @@
+//MasteringQS.js
+define(['./properties', 'text!./template.html'],
+    function(properties, template) { 
+    return { 
+        definition: properties,
+        paint: function(){},
+        resize: function(){},
+        template: template,
+        controller: ['$scope', '$element', function (scope, $element) {
+            $element.html("This is Mastering Qlik Sense");
+        }]
+    };
+});
+
+
+//properties.js
+define([], 
+    function(){ 
+        return {
+            type: "items", 
+            component: "accordion", 
+            items: { 
+                dimensions: { 
+                    uses: "dimensions" 
+                }, 
+                measures: { 
+                    uses: "measures" 
+                },
+                sorting: {
+                    uses: "sorting"
+                }, 
+                addons: { 
+                    uses: "addons"
+                }, 
+                settings: { 
+                    uses: "settings" 
+                } 
+        }
+    };
+});
+
+
+settings: { 
+    uses: "settings",
+    items: { 
+        MyStringProp: { 
+        ref: "props.title",
+        expression: "optional", 
+        label: "My string property", 
+        type: "string",
+        component: "text box",
+        defaultValue: "MyNewExtension" 
+        }
+} 
+
+
+MasteringQSdrop-down: { 
+    type: "string", 
+    component: "drop-down", 
+    label: "Text Alignment", 
+    ref: "drop-downproperty", 
+    options: [{               
+        value: "v",               
+        label: "Vertical"             
+    }, {               
+        value: "h",               
+        label: "Horizontal"             
+    }],             
+    defaultValue: "v"           
+    }, 
+}
+
+
+MasteringQSAngularComponent: { 
+     label: "AngularJS Component",
+     type: "string", 
+     component: {
+         template: '<div class="VizlibFilter-proppanel-title">{{label}}</div>',
+         controller: ["$scope", "$element", function(scope, $element){
+             scope.label = 'Hello there'
+         }]
+     }
+ } 
+
+
+settings: { 
+    uses: "settings", 
+    items: { 
+        horizontalReference: { 
+            type: "array", 
+            ref: "listItems", 
+            label: "Horizontal Reference Line", 
+            itemTitleRef: "reflabel", 
+            allowAdd: true, 
+            allowRemove: true, 
+            addTranslation: "Add Reference Line", 
+            items: { 
+                label: { 
+                    type: "string", 
+                    ref: "reflabel", 
+                    label: "Reference Line Label", 
+                    expression: "optional" 
+                }, 
+                refvalue: { 
+                    label:"Reference Value",
+                    type: "number", 
+                    ref: "refvalue" 
+                } 
+            } 
+        } 
+    } 
+}
+
+
+//properties.js
+define([], 
+    function(){ 
+        var dimensions = { 
+                uses: "dimensions" 
+            }
+        var measures = { 
+                uses: "measures" 
+                }  
+        var sorting = { 
+                uses: "sorting" 
+                }  
+        var sorting = { 
+                uses: "sorting" 
+                } 
+        var addons= { 
+                uses: "addons" 
+                } 
+        var settings = {
+                uses : "settings"
+                } 
+return {
+     type: "item", 
+     component: "accordion", 
+     items: { 
+        dimension: dimensions,
+        measures: measures,
+        sorting: sorting,
+        addons: addons,
+        settings: settings
+     }
+    }
+})
+
+ FontProperties: {
+    type: "items",
+    label: 'Font Properties',
+    grouped: true,
+    items: {
+      group1: {
+         type:'items',
+         items: {
+            fontSizeSlider: { 
+               type: "number", 
+               component: "slider", 
+               label: "Font Size (px)", 
+               ref: "FontSizeSliderValue", 
+               min: 10, 
+               max: 20, 
+               step: 1, 
+               defaultValue: 15,
+               change: function(prop){     
+                  prop.fontSize = prop.FontSizeSliderValue
+               } 
+            },
+            fontSize: {
+              type: "integer",
+              expression: "optional",
+              ref: "fontSize",
+              defaultValue: 15
+           }
+         }
+     },
+     group2: {
+         type:'items',
+         items: {
+           fontFamily: {
+              label: "Font Family",
+              type: "string",
+              expression: "optional",
+              ref: "fontfamily"
+           }
+         }
+     }
+ }
+}
+
+
+//DefineListObject
+var obj = {
+    "qDef": {
+    "qFieldDefs": ["Case Owner"]
+    },
+    "qShowAlternatives" : true,
+    "qInitialDataFetch": [{
+        qTop : 0,
+        qLeft : 0,
+        qHeight : 10000,
+        qWidth : 1
+    }]
+    };
+ 
+var app = qlik.currApp(this);
+
+//Create the listbox as a session object which will persist over the //session and then be deleted.
+app.createList(obj,function(listobject) {
+  console.log(listobject)
+})
+
+var app = qlik.currApp(this);
+app.createGenericObject({
+    user: {
+        qStringExpression:"=OSUser()"
+    }, 
+    version: {
+        qStringExpression:"=EngineVersion()"
+    }, 
+    fields: { 
+        qValueExpression:"=Count (DISTINCT $Field)"
+    } 
+}, function ( reply ) { 
+    var str = "Version:" + reply.version + 
+        str+= " Number of Fields:"+reply.fields; 
+    if(reply.user) { 
+        str += " User:" + reply.user; 
+    }
+    console.log(str)
+}
+
+
+
+//MasteringQSBarChart.qext
+{ 
+"name": "Mastering QS bar chart Example", 
+"description": "This is a description", 
+"icon": "bar-chart-vertical",
+"type": "visualization", 
+"version": 1, 
+"author": "Martin Mahler" 
+}
+
+
+//properties.js
+define([], function(){ return {
+    type: "items", 
+    component: "accordion", 
+        items: { 
+        dimensions: { 
+            uses: "dimensions",
+            min: 1,
+            max: 1  
+        }, 
+        measures: { 
+            uses: "measures",
+            min: 1,
+            max: 1 
+        },
+        sorting: {
+            uses: "sorting"
+        }, 
+        addons: { 
+            uses: "addons"
+        }, 
+        settings: { 
+            uses: "settings",
+            items: {
+            barColor: {
+                label: "Bar Color",
+                component: "color-picker",
+                type: "object",
+                dualOutput: true,
+                schemaIgnore: true,
+                ref: "barColor",
+                defaultValue: {
+                  index: -1,
+                  color: "#657dbc"
+                },
+                show: function (layout) {
+                    return true
+                }
+            },
+        } 
+    } 
+}
+};
+});
+
+
+//MasteringQSBarChart.js (snippet)
+initialProperties : { 
+ qHyperCubeDef : { 
+ qDimensions : [], 
+ qMeasures : [], 
+ qInitialDataFetch : [{ 
+  qWidth : 2, 
+  qHeight : 5000
+ }]
+ }
+},
+
+
+
+//MasteringQSBarChart.js (snippet)
+resize: function($element, layout){
+    //Makes sure the chart is re-initialized when the object is             //resized.
+    this.$scope.init(this.$scope.element, layout)
+    this.$scope.render(scope.element, scope.layout)
+},
+controller: ['$scope', '$element', function (scope, $element) { 
+    scope.prep = function(scope, $element){
+     //Prepares the SVG structure of the d3 visualization.
+     //Initializes the chart once prepared
+     scope.init(scope.element, scope.layout)
+     };
+
+     scope.init = function (element, layout){
+     //Initializes the visualization, determines size of the chart 
+     //as well as its axis, ranges and domains
+     //Renders the charts once initialized
+     };
+
+     scope.getData = function(layout){
+        //Retrieves the data 
+
+     }
+     scope.render = function(element, layout){
+     //Takes the returned dataset and visualizes the bars
+     }
+
+     scope.prep(scope, $element);
+     scope.getData(scope.layout);
+     scope.render(scope.element, scope.layout)    
+
+     scope.backendApi.model.Validated.bind(function(a, b){
+     //Listens for click events or other data 
+     //model changes to re-render the chart with the updated data.
+        scope.getData(scope.layout);
+        scope.render(scope.element, scope.layout)
+     })
+}]
+
+
+
+//MasteringQSBarChart.js - scope.prep() (snippet)
+scope.svg = d3.select($element.children()[0])    
+    .append('svg')
+
+scope.svg.append('g')
+    .attr('class', 'canvas')
+
+ scope.svg.append('g')
+    .attr('class', 'x-axis')
+
+scope.svg.append('g')
+    .attr('class', 'y-axis') 
+
+
+
+//MasteringQSBarChart.js - scope.prep() (snippet)
+scope.x = d3.scale.ordinal()
+scope.y = d3.scale.linear().nice();
+scope.xAxis = d3.svg.axis()
+scope.yAxis = d3.svg.axis();
+
+
+//MasteringQSBarChart.js - scope.prep() (snippet)
+scope.init(scope.element, scope.layout)
+
+
+//MasteringQSBarChart.js - scope.init() (snippet)
+scope.margin = {top: 30, right: 30, bottom: 30, left: 50}
+scpe.width = $element.width() - scope.margin.right - scope.margin.left
+scope.height = $element.height() - scope.margin.top - scope.margin.bottom
+
+
+//MasteringQSBarChart.js - scope.init() (snippet)
+scope.svg.select('.canvas')
+ .attr('transform', 'translate('+scope.margin.left+',5)') 
+
+scope.svg.selectAll('.x-axis')
+ .attr('transform', 'translate('+scope.margin.left+','+parseInt(scope.height+5)+')')
+
+scope.svg.selectAll('.y-axis')
+ .attr('transform', 'translate('+scope.margin.left+',5)')
+
+
+//MasteringQSBarChart.js - scope.init() (snippet)
+scope.y.range([scope.height, 0]);
+scope.x.rangeRoundBands([0, scope.width], 0.1);
+
+
+//MasteringQSBarChart.js - scope.init() (snippet)
+scope.bar_color = layout.barColor.color;
+
+
+//MasteringQSBarChart.js - scope.getData() (snippet)
+//Takes the returned dataset and visualizes the bars
+ //Data prep
+ scope.data = layout.qHyperCube.qDataPages[0].qMatrix.map(function(d, i, arr){
+         return {
+             Bar: d[0].qText,
+             BarID: d[0].qElemNumber,
+             Value: d[1].qNum,
+         }
+ })
+scope.bars = layout.qHyperCube.qDataPages[0].qMatrix.map(function(d, i, arr){
+     return d[0].qText
+ })
+//x-Axis values
+ scope.x.domain(scope.bars)
+//y-Axis domain
+ scope.y.domain([
+     0, 
+     d3.max(scope.data, function(d){
+         return d.Value;
+     })
+ ])
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+
+//Bar Width
+ scope.bar_width = scope.width/scope.bars.length*0.8;
+
+//Visualize Bars
+ var bars = scope.svg.select('.canvas')
+ .selectAll('rect')
+ .data(scope.data)
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+//Enter 
+ bars
+     .enter()
+     .append("rect") 
+     .transition()
+     .duration(300)
+     .attr("class", "bar")
+     .attr("elementid", function(d){
+         return d.BarID
+     })
+     .attr('fill', scope.bar_color)
+     .attr('width', scope.bar_width)
+     .attr('x', function(d){
+         return scope.x(d.Bar)
+     })
+     .attr('y', function(d){
+         return scope.y(d.Value);
+     })
+     .attr('height', function(d){ 
+         return scope.height-scope.y(d.Value);
+     })
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+//Update
+ scope.svg.selectAll('rect')
+     .attr("elementid", function(d){
+         return d.BarID
+     })
+     .attr('fill', scope.bar_color)
+     .attr('width', scope.bar_width)
+     .attr('x', function(d){
+         return scope.x(d.Bar)
+     }) 
+     .transition()
+     .duration(300)
+     .attr('y', function(d){
+         return scope.y(d.Value);
+     })
+     .attr('height', function(d){
+         return scope.height-scope.y(d.Value);
+     })
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+//Exit
+ bars
+     .exit()
+     .remove();
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+//Add x-axis
+scope.svg.selectAll('.x-axis')
+    .transition(300)
+    .call(
+        scope.xAxis
+        .scale(scope.x)
+        .orient('buttom')
+        .ticks(20)
+    )
+
+//Add y-axis
+scope.svg.selectAll('.y-axis')
+    .transition(300)
+    .call(
+        scope.yAxis
+        .scale(scope.y)
+        .orient('left')
+        .ticks(20)
+    )
+
+
+
+
+
+//MasteringQSBarChart.css
+.qv-object-MasteringQSBarChart .y-axis path,
+.qv-object-MasteringQSBarChart .x-axis path,
+.qv-object-MasteringQSBarChart .y-axis line,
+.qv-object-MasteringQSBarChart .x-axis line {
+ fill: none;
+ stroke: #000;
+ stroke-width: 1px;
+}
+
+
+
+//MasteringQSBarChart.js (snippet)
+scope.selection = function(elementid){
+    //Null, which carries elementid: -2, is not selectable
+    if(elementid>=0){ 
+     this.backendApi.selectValues(0, [elementid], false);
+     //Multi-select
+     //self.selectValues(0, [vElementId], false);
+    }
+ } 
+
+
+
+
+
+//MasteringQSBarChart.js - scope.render() (snippet)
+//Update
+ scope.svg.selectAll('rect')
+ .on("click", function(d, e){
+     scope.selection(d.BarID)
+ })
+ .attr("elementid", function(d){
+     return d.BarID
+ })
+ .attr('fill', scope.bar_color)
+ .attr('width', scope.bar_width)
+ .attr('x', function(d){
+     return scope.x(d.Bar)
+ }) 
+ .transition()
+ .duration(300)
+ .attr('y', function(d){
+     return scope.y(d.Value);
+ })
+ .attr('height', function(d){
+     return scope.height-scope.y(d.Value)
+ })
+
+
+
+
+//MasteringQSBarchart.js
+define(['d3', './properties', 'css!./MasteringQSBarChart.css'],
+ function(d3, properties) { 
+ return { 
+     initialProperties : { 
+     qHyperCubeDef : { 
+     qDimensions : [], 
+     qMeasures : [], 
+     qInitialDataFetch : [{ 
+         qWidth : 2, 
+         qHeight : 5000
+     }]
+  }
+ },
+ definition: properties,
+ paint: function(){},
+ resize: function($element, layout){
+     //Makes sure the chart is re-initialized when the object is          //resized.
+     this.$scope.init(this.$scope.element, layout)
+     this.$scope.render(this.$scope.element, layout)
+ },
+ template: '<div></div>',
+ controller: ['$scope', '$element', function (scope, $element) {
+     scope.prep = function(scope, $element){
+        console.log("PREP");
+         //Prepares the SVG structure of the d3 visualization. 
+         //Initializes the chart once prepared
+        scope.svg = d3.select($element.children()[0])
+         .append('svg')
+        scope.svg.append('g')
+         .attr('class', 'canvas')
+        scope.svg.append('g')
+         .attr('class', 'x-axis')
+        scope.svg.append('g')
+         .attr('class', 'y-axis')
+        scope.x = d3.scale.ordinal()
+        scope.y = d3.scale.linear().nice();
+        scope.xAxis = d3.svg.axis()
+        scope.yAxis = d3.svg.axis();
+        scope.init(scope.element, scope.layout)
+     };
+     scope.init = function (element, layout){
+        console.log("INIT");
+         //Initializes the visualization, determines size of the chart 
+         //as well as its axis, ranges and domains
+         //Renders the charts once initialized
+         scope.margin = {top: 30, right: 30, bottom: 30, left: 50}
+         scope.width = $element.width() - scope.margin.right -                     scope.margin.left
+         scope.height = $element.height() - scope.margin.top -                     scope.margin.bottom
+         scope.svg
+          .style('width', $element.width())
+          .style('height', $element.height())
+ 
+         scope.svg.select('.canvas')
+          .attr('transform', 'translate('+scope.margin.left+',5)')
+         scope.svg.selectAll('.x-axis')
+          .attr('transform',                         'translate('+scope.margin.left+','+parseInt(scope.height+5)+')')
+         scope.x.rangeRoundBands([0, scope.width], 0.1);
+         scope.svg.selectAll('.y-axis')
+          .attr('transform', 'translate('+scope.margin.left+',5)')
+         scope.y.range([scope.height, 0]);
+         scope.bar_color = layout.barColor.color;
+      };
+    scope.getData = function(layout){
+        console.log("GETDATA");
+        //Takes the returned dataset and visualizes the bars
+        //Data prep
+        scope.data = layout.qHyperCube.qDataPages[0].qMatrix.map(function(d, i, arr){
+     return {
+         Bar: d[0].qText,
+         BarID: d[0].qElemNumber,
+         Value: d[1].qNum,
+     }
+ })
+    scope.bars =  layout.qHyperCube.qDataPages[0].qMatrix.map(function(d, i, arr){
+     return d[0].qText
+ })
+       //x-Axis values
+       scope.x.domain(scope.bars)
+       //y-Axis domain
+       scope.y.domain([
+         0, 
+         d3.max(scope.data, function(d){
+             return d.Value;
+         })
+       ])
+ }
+    scope.render = function(element, layout){
+        console.log("RENDER");
+        //Bar Width
+         scope.bar_width = scope.width/scope.bars.length*0.8;
+        //Visualize Bars
+         var bars = scope.svg.select('.canvas')
+          .selectAll('rect')
+          .data(scope.data)
+        //Enter 
+         bars
+          .enter()
+          .append("rect") 
+          .transition()
+          .duration(300)
+          .attr("class", "bar")
+          .attr("elementid", function(d){
+             return d.BarID
+         })
+          .attr('fill', scope.bar_color)
+          .attr('width', scope.bar_width)
+          .attr('x', function(d){
+             return scope.x(d.Bar)
+           })
+          .attr('y', function(d){
+             return scope.y(d.Value);
+          })
+          .attr('height', function(d){ 
+             return scope.height-scope.y(d.Value)
+          })
+       //Update
+         scope.svg.selectAll('rect')
+          .on("click", function(d, e){
+             scope.selection(d.BarID)
+          })
+          .attr("elementid", function(d){
+             return d.BarID
+          })
+         .attr('fill', scope.bar_color)
+         .attr('width', scope.bar_width)
+         .attr('x', function(d){
+          return scope.x(d.Bar)
+         }) 
+         .transition()
+         .duration(300)
+         .attr('y', function(d){
+          return scope.y(d.Value);
+         })
+         .attr('height', function(d){
+          return scope.height-scope.y(d.Value)
+         })
+        //Exit
+         bars
+          .exit()
+          .remove(); 
+ 
+         //Add x-axis
+         scope.svg.selectAll('.x-axis')
+          .transition(300)
+          .call(
+             scope.xAxis
+              .scale(scope.x)
+              .orient('buttom')
+              .ticks(20)
+          )
+        //Add y-axis
+        scope.svg.selectAll('.y-axis')
+         .transition(300)
+         .call(
+          scope.yAxis
+           .scale(scope.y)
+           .orient('left')
+           .ticks(20)
+         )
+    }
+    scope.selection = function(elementid){ 
+         if (elementid >= 0) { // null is not selectabel (element -2)
+             this.backendApi.selectValues(0, [elementid], false);                 //Multi-select
+             //self.selectValues(0, [vElementId], false);
+         } 
+        
+ }
+ scope.prep(scope, $element);
+ scope.getData(scope.layout);
+ scope.render(scope.element, scope.layout)
+
+ scope.backendApi.model.Validated.bind(function(a, b){
+     //Listens for click events or other data 
+     //model changes to re-render the chart with the updated data.
+     scope.getData(scope.layout);
+     scope.render(scope.element, scope.layout)
+ })
+}]
+ }
+});
+
+
+
+
+
+
+//properties.js
+define([], function(){ 
+    return {
+        type: "items", 
+        component: "accordion", 
+        items: { 
+            settings: {
+            label: "Settings",
+            type: "items", 
+            items: { 
+                MasteringQSdrop-down: { 
+                    type: "string", 
+                    label: "drop-down Field", 
+                    ref: "field", 
+                    expression: "optional" 
+                },
+                includeFrequency: { 
+                    label: "Include Frequency",
+                    ref: "includeFrequency",
+                    type: "boolean", 
+                    defaultValue: false
+                },
+                ReadOnly: { 
+                    label: "Read Only",
+                    ref: "readonly",
+                    type: "boolean", 
+                    defaultValue: false
+                }
+            } 
+            } 
+        }
+    };
+});
+
+
+
+
+//template.html
+<div>
+<h4>Dimension Title</h4>
+<select class="lui-select lui-select--gradient">
+ <option value="1" selected>First</option>
+ <option value="2">Second</option>
+ <option value="3">Third</option>
+</select> 
+</div>
+
+
+
+define(['qlik', './properties', 'text!./template.html', 'css!./MasteringQSdrop-down.css'],
+function(qlik, properties, template) { 
+ return { 
+     snapshot: {
+         canTakeSnapshot: false
+     },
+     definition: properties,
+     paint: function(){},
+     resize: function(){},
+     template: template,
+     controller: ['$scope', '$element', function (scope, $element) {
+        //Code comes here
+    }]
+     }
+});
+
+
+
+
+//Get list of values
+ var obj = {
+     "qDef": {
+     "qFieldDefs": [scope.layout.field]
+     },
+     "qInitialDataFetch": [{
+         qTop : 0,
+         qLeft : 0,
+         qHeight : 10000,
+         qWidth : 1
+     }]
+ };
+var app = qlik.currApp();
+//Create the listbox as a session object which will persist over the session and then be deleted.
+app.createList(obj,function(listobject) {
+    //Dimension values values
+}
+
+
+
+
+
+//Create the listbox as a session object which will persist over the session and then be deleted.
+app.createList(obj,function(listobject) {
+   //Define dimension title
+   scope.dimension_title = listobject.qListObject.qDimensionInfo.qFallbackTitle
+
+   //Define Dimension value
+   scope.dimension_values = listobject.qListObject.qDataPages[0].qMatrix.map(function(row){
+   return {
+      title: row[0].qText,
+      element_id: row[0].qElemNumber,
+      selection_state: row[0].qState
+   }
+ })
+
+
+
+
+
+<div>
+<h4>{{dimension_title}}:</h4>
+<select class="lui-select lui-select--gradient">
+     <option ng-repeat='value in dimension_values track by $index' value="{{value.element_id}}" class="state_{{value.selection_state}}">{{value.title}}</option>
+</select> 
+</div>
+
+
+
+
+ //Get list of values
+ var obj = {
+     "qDef": {
+     "qFieldDefs": [scope.layout.field]
+ },
+ "qFrequencyMode": scope.layout.includeFrequency ?                                               "EQ_NX_FREQUENCY_VALUE" : "NX_FREQUENCY_NONE",
+ "qInitialDataFetch": [{
+     qTop : 0,
+     qLeft : 0,
+     qHeight : 10000,
+     qWidth : 1
+ }]
+ };
+
+
+
+
+//Define Dimension value
+ scope.dimension_values = listobject.qListObject.qDataPages[0].qMatrix.map(function(row){
+     return {
+         title: row[0].qText,
+         element_id: row[0].qElemNumber,
+         selection_state: row[0].qState,
+         frequency: scope.layout.includeFrequency ? '- ' + row[0].qFrequency : ''
+     }
+ })
+
+
+
+

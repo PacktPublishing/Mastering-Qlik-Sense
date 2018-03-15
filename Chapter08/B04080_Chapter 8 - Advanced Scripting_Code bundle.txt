@@ -1,0 +1,665 @@
+Chapter 8  - Advanced Scripting - code
+
+=============================
+SET|LET variableName = 'variable value';
+=============================
+
+=============================
+SET HidePrefix = '%';
+SET HideSuffix = '_';
+============================================
+
+
+===========================================
+$(include=filename);
+$(must_include=filename);
+===========================================
+
+
+
+==========================================
+$(must_include=C:\MyDocuments\IncludeFile.txt);
+=============================================
+
+
+============================================
+$(must_include=lib://myFiles\IncludeFile.txt);
+==============================================
+
+
+
+==============================================================
+set CreateSearchIndexOnReload=1; 
+==============================================================
+
+
+-=============================================================
+SET NullDisplay = 'Null Value';
+==============================================================
+
+
+=============================================
+set NullInterprete='NULL';
+
+Table:
+LOAD 
+  DataField
+  ,'NULL' AS NullField
+Inline
+[
+DataField
+Value 1
+Value 2
+Value 3
+];
+
+=============================================
+
+
+=============================================
+SET NullInterprete='';
+=============================================
+
+=============================================
+NullAsValue Telephone;
+
+SET NullValue='%NULL%';
+
+Customers:
+LOAD 
+    Customer
+    ,Telephone
+ FROM [LIB://MyFiles\Customers.csv];
+=============================================
+
+===========================================
+SET DecimalSep = '.';
+===========================================
+
+===========================================
+SET ThousandSep = ',';
+-===========================================
+
+
+============================================
+SET DateFormat = 'DD-MM-YYYY';
+================================================
+
+
+============================================
+SET DateFormat = 'MM-DD-YYYY';
+================================================
+
+
+============================================
+SET DateFormat = 'YYYY-MM-DD';
+================================================
+
+
+============================================
+SET MonthNames = 'Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames =  'January;February;March;April;May;June;July;August;September;October;November;December';
+================================================
+
+
+============================================
+SET DayNames = 'Lun;Mar;Mie;Jue;Vie;Sab;Dom';
+SET LongDayNames='Lunes;Martes;Miercoes;Jueves;Viernes;Sabado;Domingo';
+================================================
+
+
+============================================
+MyTable:
+LOAD * FROM [LIB://MyFolder\Sales.qvd] (qvd);
+================================================
+
+
+============================================
+Sub SetVariables
+
+SET vBookName = 'Mastering Qlik Sense';
+LET vCurrentYear = Year(Today());
+
+End Sub
+================================================
+
+
+============================================
+Sub LoadYear(UserYear)
+
+Table:
+LOAD 
+* 
+Inline
+[
+Year
+2015
+2016
+2017
+]
+where Year = $(UserYear);
+
+END Sub
+================================================
+
+===============================================
+Sub StoreAndDrop(vMyTable, vFileName)
+
+STORE $(vMyTable) INTO [lib://FolderConnection/$(vFileName).qvd] (QVD);
+DROP TABLE $(vMyTable);
+
+END sub;
+==================================================
+
+============================================
+Call subroutineName(Parameter 1, Parameter 2, Parameter n);
+================================================
+
+===============================================
+Sub LoadYear(UserYear)
+
+Table:
+LOAD 
+*
+Inline
+[
+Year
+2015
+2016
+2017
+]
+where Year = $(UserYear);
+
+END Sub
+Call LoadYear(2017);
+================================================
+
+
+===============================================
+LET vCount = 1;
+
+DO while vCount <= 5
+
+TRACE Loop will continue until variable vCount is less or equal to 5 $(vCount);
+
+LET vCount = $(vCount)+1;
+
+Loop;
+================================================
+
+
+===============================================
+LET vCount = 1;
+
+DO until vCount = 5
+
+TRACE Loop will continue until variable vCount equals 5;
+
+LET vCount = $(vCount)+1;
+
+Loop;
+================================================
+
+
+
+
+===============================================
+SET vBookName = 'Mastering Qlik Sense';
+SET vBookNameBackwards = '';
+/*
+We loop through the string contained in variable vBookName.
+Step -1 will make the loop count down one by one.
+*/
+
+FOR ForCounter = len('$(vBookName)') to 1 Step -1
+
+/*
+We get the each letter in the variable vBookName but backwards.
+*/
+
+LET vLetterPosition = mid('$(vBookName)',$(ForCounter),1);
+
+LET vBookNameBackwards = vBookNameBackwards & vLetterPosition;
+
+Next;
+
+TRACE The word "$(vBookName)" is "$(vBookNameBackwards)" backwards.;
+
+================================================
+
+
+
+===============================================
+/*We make sure our variables are empty.*/
+
+SET vFields = ;
+SET vNoOfFields =;
+
+
+/* we load our sample data */
+[Sales]:
+LOAD * 
+
+Inline
+[
+Country, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
+United States, 100, 103, 108, 103, 103, 99, 115, 113, 118, 120, 128, 125
+United Kingdom, 160, 165, 165, 148, 177, 151, 149, 132, 136, 146, 140, 170
+];
+
+/*Create a variable with the number of fields in our source.*/
+LET vNoOfFields = NoOfFields('Sales');
+
+/* We create a a variable with comma separated values that we will use in For Each... Next */
+
+For counter = $(vNoOfFields) to 2 Step -1
+
+/* We create the variable vFields which contains a string with all the months columns. */
+
+LET vFields = '@'&FieldName($(counter), 'Sales')&'@'&',' &vFields;
+
+/* Replacing character holder "@" by single quotes */
+LET vFields = replace('$(vFields)', '@',chr(39));
+
+Next counter
+
+/* We start the crosstable function.*/
+For Each value in $(vFields)
+
+[SalesCrossTable]:
+Load 
+  Country,
+  '$(value)' as Month,
+  $(value) as Sales
+Resident Sales
+;
+
+Next value
+
+DROP Table Sales;
+
+================================================
+
+================================================
+/*
+This script will only execute if the 4 DB connections ASP, MENA, AMER and EUR are created in the server 
+or machine running the script.
+*/
+
+For each vDBConnection IN 'ASP', 'MENA', 'AMER', 'EUR';
+
+LIB CONNECT TO '$(vDBConnection)';
+
+TRACE Loading data from database in $(vDBConnection);
+
+Fact:
+SQL
+SELECT * FROM QS_FACT_TABLE;
+
+STORE Fact INTO [lib://Source/QS_FACT_TABLE_$(vDBConnection).qvd] (qvd);
+
+DROP TABLE Fact;
+
+======================================================
+
+-==================================================
+/*
+The following code includes a file containing a variable definition with string Live, UAT or Development.
+Folder connections with name ConnectionLive, ConnectionUAT and ConnectionDevelopment must be setup 
+in the server. Each server will have the file Environment.txt.
+*/
+
+$(must_include=lib://Environment/Environment.txt);
+
+Switch vEnvironment
+CASE 'Live';
+SET vFolderConnection = 'ConnectionLive';
+CASE 'UAT';
+SET vFolderConnection = 'ConnectionUAT';
+CASE 'Development';
+SET vFolderConnection = 'ConnectionDevelopment';
+End Switch;
+LOAD * From
+[lib://$(vFolderConnection)/Customers.txt]
+(txt, codepage is 28591, embedded labels, delimiter is '\t', msq);
+
+=============================================================================
+===============================================
+SET vEnvironment = 'Development';
+
+IF vEnvironment = 'Development' THEN
+
+LOAD
+  *
+FROM [lib://Mastering Qlik Sense Dev\Sample Data.xlsx]
+(ooxml, embedded labels, table is Sheet1);
+
+Else
+
+LOAD
+  *
+FROM [lib://Mastering Qlik Sense Prod\Client Data.xlsx]
+(ooxml, embedded labels, table is Sheet1);
+
+End If;
+
+
+================================================
+
+==============================================
+Data:
+LOAD
+ *,
+if(not isnull([Balance]), 1, 0) AS _flagHasBalance
+FROM [lib://Mastering Qlik Sense Prod\Client Data.xlsx]
+(ooxml, embedded labels, table is Sheet1);
+
+=================================================
+
+===============================================
+MyData:
+Load
+  WeekDay,
+    RecNo() AS RecNo,
+    RowNo() As RowNo
+Inline [
+WeekDay
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
+Sunday
+]
+where WeekDay <> 'Tuesday';
+
+
+================================================
+
+
+
+===============================================
+MyData:
+Load
+  WeekDay,
+    RecNo() AS RecNo,
+    RowNo() As RowNo
+Inline [
+WeekDay
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
+Sunday
+]
+where WeekDay <> 'Tuesday';
+
+LET vNoOfRows = NoOfRows('MyData');
+LET vNoOfFields = NoOfFields('MyData'); 
+
+TRACE NoOfRows() returns 6;
+TRACE ;
+TRACE NoOfFields() returns 3;
+================================================
+
+
+===============================================
+Section Access;
+LOAD 
+    UPPER(ACCESS) AS ACCESS,
+    UPPER(USERID) AS USERID 
+inline
+[ACCESS,USERID
+ADMIN, DOMAIN\Juan
+USER, DOMAIN\Martin
+];
+Section Application;
+LOAD
+*
+[LIB:\\Myfiles/Sales.csv];
+
+
+================================================
+
+
+===============================================
+MyData:
+Load 
+  [Sales Manager],
+    Country, 
+    Sales,
+    upper(Country) AS COUNTRY
+
+Inline
+[
+Sales Manager, Country, Sales
+Peter, Germany, 100
+John, United Kingdom, 100
+John, Germany, 50
+];
+
+// Start of Section Access
+Section Access;
+
+LOAD 
+  UPPER(ACCESS) AS ACCESS,
+  UPPER(USERID) AS USERID,
+  UPPER(COUNTRY) AS COUNTRY
+
+Inline
+[
+ACCESS, USERID, COUNTRY
+USER, DOMAIN\Peter, GERMANY
+USER, DOMAIN\John, UNITED KINGDOM
+USER, DOMAIN\John, UNITED KINGDOM
+];
+//End of section access.
+Section Application;
+================================================
+
+
+
+===============================================
+
+/*Loading Sales data. As I want to reduce the data based on country, I create an upper cased field with the country in it that it is used in section access. */
+
+[Sales]:
+LOAD 
+  [Sales Manager],
+  [Regional Sales Manager],
+  Country,
+  upper(Country) AS COUNTRYSECTIONACCESS,
+  Sales
+  
+Inline [
+Sales Manager, Regional Sales Manager, Country, Sales
+Peter, Martha, Germany, 100
+John, Martha, United Kingdom, 50
+John, Martha, United Kingdom,100
+];
+
+/* Loading bonus data and automatically joining through field [Sales Manager] */ 
+
+[Bonus]:
+LOAD 
+ [Sales Manager],
+ upper([Bonus]) AS [BONUS] /*Everything linked to section access goes in upper case. */
+Inline [
+Sales Manager,Bonus
+Peter, 5%
+John, 5%
+Martha, 5.2%
+];
+
+//Beginning of Section Access;
+
+Section Access;
+
+LOAD 
+  upper(ACCESS) AS ACCESS,
+  upper(USERID) AS USERID,
+  upper(COUNTRYSECTIONACCESS) AS COUNTRYSECTIONACCESS,
+  upper(OMIT) AS OMIT
+
+Inline [
+ACCESS, USERID, COUNTRYSECTIONACCESS, OMIT
+USER, MYDOMAIN\Peter, Germany, Bonus
+USER, MYDOMAIN\John, Germany, Bonus
+USER, MYDOMAIN\John, United Kingdom, Bonus
+USER, MYDOMAIN\Martha, Germany,
+USER, MYDOMAIN\Martha, United Kingdom,
+];
+
+//End of section access
+Section Application;
+
+
+
+================================================
+==================================================
+
+FINAL SAMPLE SCRIPT
+---------------------
+
+[Variable Setup] section:
+
+/*
+In this section we initilize all variables used in the script.
+*/
+
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='£#,##0.00;-£#,##0.00';
+SET TimeFormat='hh:mm:ss';
+SET DateFormat='DD/MM/YYYY';
+SET TimestampFormat='DD/MM/YYYY hh:mm:ss[.fff]';
+SET FirstWeekDay=0;
+SET BrokenWeeks=0;
+SET ReferenceDay=4;
+SET FirstMonthOfYear=1;
+SET CollationLocale='en-GB';
+SET CreateSearchIndexOnReload=1;
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET LongMonthNames='January;February;March;April;May;June;July;August;September;October;November;December';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+SET LongDayNames='Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday';
+
+//Including variable containing current environment (Development/Live); 
+
+$(Must_Include=lib://Environment\Environment.txt);
+
+TRACE Current environment is $(vEnvironment);
+////////////////
+
+[Stats Table] section:
+
+
+/*Creating the statistics base table */
+
+[Stats]:
+LOAD 
+  *
+Inline [
+Stats.Table, Stats.Description, Stats.Records, Stats.Start, Stats.End
+];
+
+/*Creating subrouting that we will call when we create a new table. */
+
+sub Stats
+
+concatenate(Stats)
+LOAD 
+  *
+Inline [
+Stats.Table, Stats.Description, Stats.Records, Stats.Start, Stats.End
+$(vTable), $(vTableDescription), $(vRecords), $(vStart), $(vEnd)
+];
+
+End Sub
+//////////////////////////////
+
+[Main Script] section:
+
+sub Main
+
+/*Variables used in the stats table. */
+LET vTable = 'SourceTable';
+LET vTableDescription = 'This table contains main source data';
+LET vStart = Timestamp(Now());
+
+/* If source file doesn't exist I create it by loading and storing the data. */
+
+If FileSize('[lib://Source\MyData.qvd]') THEN
+
+TRACE Source file exists. Load data from source;
+
+[$(vTable)]:
+LOAD * FROM [LIB://Source\MyData.qvd] (qvd);
+
+
+ELSE
+TRACE Source file doesn't exist. Create source and store it.;
+
+[$(vTable)]:
+LOAD 
+  *
+Inline [
+Month, Sales
+Jan, 100
+Feb, 110
+Mar, 90
+Apr, 95
+May, 103
+Jun, 99
+Jul, 102
+Aug, 130
+Sep, 135
+Oct, 132
+Nov, 115
+Dec, 102
+];
+
+TRACE Storing file...;
+
+STORE $(vTable) INTO [LIB://Source\MyData.qvd] (qvd);
+
+ENDIF;
+
+/* We call the Stats subrouting to store table stats. */
+
+LET vEnd = Timestamp(Now());
+LET vRecords = NoOfRows('$(vTable)');
+
+Call Stats;
+
+End Sub
+/////////////////////////
+
+[Section Access] section:
+
+Sub SectionAccess
+
+Section Access;
+
+LOAD 
+  UPPER(ACCESS) AS ACCESS,
+    UPPER(USERID) AS USERID
+FROM [lib://Source/SectionAccess.xlsx]
+(ooxml, embedded labels, table is Sheet1);
+
+Section Application;
+
+End Sub;
+
+////////////////////////////
+
+[Script Execution] section:
+
+Call Main;
+Call SectionAccess;
+

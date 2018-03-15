@@ -1,0 +1,304 @@
+Chapter 9 code
+
+=============================
+ModifiersSample:
+LOAD * inline
+[
+Product Id, Product Description, Month, Year, MonthYear, Sales Manager, Sales
+1, Shoes, 1, 2016, Jan 2016, Mary, 544
+1, Shoes, 1, 2017, Jan 2017, Mary, 235
+1, Shoes, 1, 2018, Jan 2018, Mary, 1000
+1, Shoes, 1, 2018, Jan 2018, Joe, 500
+1, Shoes, 1, 2018, Jan 2018, Michael, 700
+1, Shoes, 2, 2018, Feb 2018, Mary 560
+1, Shoes, 2, 2018, Feb 2018 Kathy, 890
+2, Tops, 1, 2018, Jan 2018, Mary, 60
+2, Tops, 1, 2018, Jan 2018, Michael 200
+3, Shirts, 3, 2018, Mar 2018, Michael, 1580
+3, Shirts, 1, Jan 2018, Kathy, 759
+];
+=============================
+
+=============================
+sum({$< [Year] = {"201*"} - {2016} >} Sales)
+============================================
+
+
+
+===========================================
+sum({$< [Product Id] = [Product Id] + {3} >} Sales)
+===========================================
+
+
+
+==========================================
+
+count({$< [Year] = {2018}, [Sales Manager] =  {"*"} - {"Mary"} >} [Product Id])
+=============================================
+
+
+
+============================================
+sum({$< [Product Id] = [Product Id] + {3} >} Sales)
+==============================================
+
+
+===============================================
+sum({$< [Product Id] += {3} >} Sales)
+===============================================
+
+================================================
+sum({$< [Sales Manager] -= {"Mary"} >} Sales)
+
+================================================
+
+================================================
+sum({$< [Product Description] = {"S*"} >} Sales)
+================================================
+
+================================================
+
+sum({$< [Sales Manager] = {"=count({1<Year = {2018}>} distinct [Product Id]) > 2" } >} Sales)
+==================================================
+
+
+=============================================
+sum({< [Sales Manager] = p({1} [Supervisor])>}  Sales)
+
+=============================================
+
+
+
+===========================================
+sum( {$<[Sales Manager] = E({1<[Product Description] ={'Shoes'}>}) >} Sales )
+===========================================
+
+
+============================================
+SUM({$< [Year] = {2018} >} Sales)
+============================================
+
+
+============================================
+SUM({$< [Year] = {$(=year(today()))} >} Sales)
+============================================
+
+============================================
+sum({< [ProductId] = [ItemId] >} [Sales])
+============================================
+
+===========================================
+count({$< [Product Id] = P([Product Status Id]) >} [Product Id])
+=============================================
+
+
+==============================================
+count({$< [Product Id] = E([Product Status Id]) >} [Product Id])
+=============================================
+
+=============================================
+SET vMyVariable = 'Mastering Qlik Sense';
+=============================================
+
+=============================================
+LET   vMonth = monthname(today());
+=============================================
+
+=============================================
+SET vMyString = 'This is a string';
+
+SET vAnotherString = today();
+==============================================
+
+
+=============================================
+LET vToday = today();
+=============================================
+
+=============================================
+//These variables will hold strings '2+2' and 'month(yearstart(today()))' respectively
+
+SET vSumString = 2+2;
+SET vMonthString = month(yearstart(today()));
+
+//These variables will hold values 4 and the short name of the first month of the year respectively
+
+LET vSumResult = 2+2;
+LET vMonth = month(yearstart(today()));
+=============================================
+
+=============================================
+SET vMyInterestRate = 0.02;
+
+Balance:
+LOAD 
+AccountId
+,Balance
+,Balance * $(vMyInterestRate) AS [Interest On Balance]
+,Balance * (1+$(vMyInterestRate)) AS [Final Balance]
+FROM
+[lib://MyFiles/CustomerBalances.qvd]
+=============================================
+
+=============================================
+SET vBookName = 'Mastering Qlik Sense';
+
+BookTable:
+LOAD * INLINE
+[
+Book Name
+Mastering Qlik Sense
+];
+
+IF peek([Book Name]) = $(vBookName) THEN
+TRACE True;
+ELSE 
+TRACE False;
+ENDIF;
+=============================================
+
+=============================================
+...
+IF peek([Book Name]) = '$(vBookName)' THEN
+...
+=============================================
+
+=============================================
+SET vFormatNumber = if($1 >=0 AND $1 <=999, round($1,0.1), if($1 >=1000 and $1 <=999999, round($1/1000,0.1) & 'K', if($1 >=1000000, round($1/1000000, 0.1)&'M', $1)));
+=============================================
+
+=============================================
+SET vFormatNumber = if($1 >=0 AND $1 <=999, round($1,0.1), if($1 >=1000 and $1 <=999999, round($1/1000,0.1) & 'K', if($1 >=1000000, round($1/1000000, 0.1)&'M', $1)));
+
+
+DataTable:
+LOAD 
+$(vFormatNumber(Sales)) AS SalesFormatted,
+Sales
+INLINE
+[
+Sales
+-1500
+1875
+180000
+1570000
+];
+=============================================
+
+=============================================
+SET vMyFirstVariable = 'First value';
+
+SET vMyFirstVariable = 'Reassigning a value';
+//Assigning an empty variable most probably means we don't use this variable anymore.
+SET vMyFirstVariable = '';
+=============================================
+
+=============================================
+LET vCurrentYear = year(today());
+SET vMySalesField  = '[Sales]';
+==============================================
+
+=============================================
+sum(if([Year] = $(vCurrentYear), $(vMySalesField))
+===============================================
+
+=================================================
+SET vExpression = count(distinct [Customers]);
+================================================
+================================================
+LET vToday = today();
+==================================================
+
+=================================================
+sum({$< Date = {$(vToday)} }> Balance)
+================================================
+
+================================================
+SET vCurrentYearNAM = '[Year] = {2018}, Country = {"Mexico", "United States", "Canada"}';
+=================================================
+
+=================================================
+count({< $(vCurrentYearNAM) >} DISTINCT [Product Id])
+=================================================
+
+=================================================
+sum({$< [Product] = {'Current Account'} >} [Balance])
+=================================================
+
+
+==================================================
+SET vMyProduct = 'Current Account'; 
+==================================================
+
+=====================================================
+sum({$< [Product] = {'$(vMyProduct)'} >} [Balance])
+====================================================
+====================================================
+sum({$< [Product] = {'Current Account'} >} [Balance])
+====================================================
+
+===================================================
+sum({$< [Year] = {2018} >} Sales)
+===================================================
+
+=====================================================
+LET vCurrenYear = year(today());
+SET vMySalesField = '[Sales]';
+=====================================================
+======================================================
+sum({$< [Year] = {$(vCurrentYear)} >} $(vMySalesField))
+=======================================================
+======================================================
+[Variables]:
+LOAD
+    "Variable Name",
+    Environment,
+    "Expression Definition",
+    "Active Flag",
+    Comments
+FROM [lib://AttachedFiles/Variables.xlsx]
+(ooxml, embedded labels, table is Sheet1)
+WHERE [Active Flag] = 'Yes' AND Environment = 'Live';
+
+FOR i = 0 to NoOfRows('Variables')
+
+LET vTempVar = peek('Variable Name',$(i), 'Variables');
+LET $(vTempVar) = peek('Expression Definition', $(i), 'Variables');
+
+NEXT;
+
+Drop Table Variables;
+=======================================================
+======================================================
+[Variables]:
+LOAD
+    "Variable Name",
+    Environment,
+    "Expression Definition",
+    "Active Flag",
+    Comments
+FROM [lib://AttachedFiles/Variables.xlsx]
+(ooxml, embedded labels, table is Sheet1)
+WHERE [Active Flag] = 'Yes' AND Environment = 'Live';
+=======================================================
+======================================================
+...
+WHERE [Active Flag] = 'Yes' AND Environment = 'Development';
+=======================================================
+======================================================
+FOR i = 0 to NoOfRows('Variables')
+
+NEXT;
+=======================================================
+======================================================
+LET vTempVar = peek('Variable Name',$(i), 'Variables');
+=======================================================
+======================================================
+LET $(vTempVar) = peek('Expression Definition', $(i), 'Variables');
+=======================================================
+=======================================================
+Drop Table Variables;
+========================================================
+=======================================================
+
+END OF CODE BUNDLE

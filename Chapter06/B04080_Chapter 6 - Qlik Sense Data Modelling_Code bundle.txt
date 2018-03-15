@@ -1,0 +1,132 @@
+Chapter 6 code
+
+=============================
+SQL SELECT Customer, Customer_Country, Active_Flag FROM CUSTOMERS;
+=============================
+
+=============================
+Set HidePrefix='%' ;
+
+[Accumulating Snapshot Fact]:
+LOAD 
+       %TranStartDate                     as %Date 
+      ,%TranEndDate 
+      ,%Customer 
+      ,%Account 
+      ,round(TransactionAmount, 0.1)      as TransactionAmount 
+      ,round(CurrentBalance, 0.1)         as CurrentBalance 
+      ,round(TransactionAmountFee, 0.1)   as TransactionAmountFee 
+      ,'TransactionFact'                  as _FactType   
+FROM [lib://AttachedFiles/Symbol Tables.xlsx]
+(ooxml, embedded labels, table is AccumulatingSnapshotFact);
+
+Concatenate ([Accumulating Snapshot Fact])
+
+[TransactionFact]:
+LOAD    
+         floor(%MontEndDate)                as %Date    
+        ,%Customer    
+       ,round(CustomerFee, 0.1)             as CustomeFee     
+       ,'CustomerFeeFact'                   as _FactType
+FROM [lib://AttachedFiles/Symbol Tables.xlsx]
+(ooxml, embedded labels, table is TransactionFact);
+
+============================================
+
+
+===========================================
+sum({< _FactType = {'TransactionFact'} >} TransactionAmount)
+===========================================
+
+
+
+==========================================
+Product:
+LOAD * Inline
+[
+ProductId, Product Code, Product Description
+111119, AOCE-1247-POX, Current Account
+111120, ACRW-5098-LOK, Saving Account Premium
+111121, GTRD-3422-RTY, Saving Account Standard
+];
+Join (Product)
+
+Country:
+LOAD * Inline
+[
+CountryISOCode, Country
+US, United States
+GB, United Kingdom
+];
+=============================================
+
+
+
+============================================
+CustomerProducts:
+LOAD * Inline
+[
+CustomerId, Customer Name, ProductId 
+1, Juan,111119 
+2, Martin,111119
+3, Peter,111120
+];
+Inner Join (CustomerProducts)
+Product:
+LOAD * Inline
+[
+ProductId, Product Code, Product Description
+111119, AOCE-1247-POX, Current Account
+111120, ACRW-5098-LOK, Saving Account Premium
+111121, GTRD-3422-RTY, Saving Account Standard
+];
+==============================================
+
+
+
+
+
+
+=============================================
+CustomerProducts:
+LOAD * Inline
+[
+CustomerId, Customer Name, ProductId 
+1, Juan,999999
+2, Martin,111119
+3, Peter,111120
+];
+Left Join (CustomerProducts)
+Product:
+LOAD * Inline[
+ProductId, Product Code, Product Description
+111119, AOCE-1247-POX, Current Account
+111120, ACRW-5098-LOK, Saving Account Premium 
+111121, GTRD-3422-RTY, Saving Account Standard
+];
+=============================================
+
+
+
+===========================================
+CustomerProducts:
+LOAD * Inline
+[
+CustomerId, Customer Name, ProductId
+1, Juan,999999
+2, Martin,111119
+3, Peter,111120]
+;
+Right Join (CustomerProducts)
+Product:
+LOAD * Inline
+[
+ProductId, Product Code, Product Description
+111119, AOCE-1247-POX, Current Account
+111120, ACRW-5098-LOK, Saving Account Premium
+111121, GTRD-3422-RTY, Saving Account Standard
+];
+===========================================
+
+
+

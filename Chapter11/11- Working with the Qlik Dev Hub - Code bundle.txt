@@ -1,0 +1,86 @@
+11 - Working with Qlik Dev Hub
+=================================================
+=================================================
+
+EXTENSION EDITOR
+-----------------
+
+///////////////////////////////////////////////
+<HTML>
+<BODY>
+<H1>My first extension</H1>
+<TABLE border=1>
+<TR><TD>Mastering</TR></TD>
+<TR><TD>Qlik</TR></TD>
+<TR><TD>Sense </TR></TD>
+</TABLE>
+</BODY>
+</HTML>
+/////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////
+var book = [
+   'Mastering',
+   'Qlik',
+   'Sense'
+]; 
+var content = "<html><body><H1>My first extension</H1><br><table border=1>"
+  for(i=0; i<3; i++){
+      content += '<tr><td>' + book[i] + '</td></tr>';
+    }
+    content += "</body></table></html>"
+
+$element.append(content);
+//////////////////////////////////////////////////////////
+
+ 
+//////////////////////////////////////////////////////////
+define( [ "qlik"
+],
+function ( qlik) {
+
+  return {
+    support : {
+      snapshot: true,
+      export: true,
+      exportData : false
+    },
+    paint: function ($element) {
+      //add your rendering code here
+        
+    var book = [
+       'Mastering',
+       'Qlik',
+       'Sense'
+      ]; 
+var content = "<html><body><H1>My first extension</H1><br><table border=1>"
+  for(i=0; i<3; i++){
+      content += '<tr><td>' + book[i] + '</td></tr>';
+    }
+    content += "</body></table></html>"
+
+$element.append(content);
+      
+      
+      //needed for export
+      return qlik.Promise.resolve();
+    }
+  };
+
+} );
+
+/////////////////////////////////////////////////////////////////////
+
+WIDGET EDITOR
+--------------
+
+//////////////////////////////////////////////////////////////////////
+<!-- Some examples how to use actions -->
+<p>
+  <b>App actions:</b><br/>
+  <lui-button ng-click="app.clearAll()">Clear selections</lui-button><br/>
+</p>
+<hr/>
+///////////////////////////////////////////////////////////////////////
+
