@@ -142,7 +142,7 @@ Optimized_3:
 LOAD 
      City       AS   Cities,
      Country    AS   Countries
-FROM 'LIB://myConnection/CitiesCountries.qvd'
+FROM 'LIB://myConnection/CitiesCountries.qvd' (qvd)
 Where Exists(City);
 ===========================================
 
@@ -152,7 +152,7 @@ LOAD
      City       AS   Cities,
      Country    AS   Countries,
      pick(match(Country, 'United States','United Kingdom','Germany'), 'US', 'GB', 'DE) AS CountryCodes
-FROM 'LIB://myConnection/CitiesCountries.qvd'
+FROM 'LIB://myConnection/CitiesCountries.qvd' (qvd)
 Where Exists(City);
 -===========================================
 
