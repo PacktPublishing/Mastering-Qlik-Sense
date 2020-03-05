@@ -1,0 +1,101 @@
+CustomerID,CompanyName,Firstname,Lastname,City,Country,BranchID,Address,Fax,Phone,PostalCode,StateProvince
+1,Eintrach GS,Albert von Einstein,von Einstein,Berlin,Germany,1,Obere Str. 57,030-0076545,030-0074321,12209,
+2,La Tienda de la Esquina,Paco el Maco,el Maco,México D.F.,Mexico,2,Avda. de la Constitución 2222,(5) 555-3745,(5) 555-4729,5021,
+3,La Ropa Vieja,Sancho Panza,Panza,México D.F.,Mexico,2,C/ Ritual de lo Habitual  2312,,(5) 555-3932,5023,
+4,Dr Jims Trousers,Carl Montgomery,Montgomery,London,UK,1,120 Hanover Sq.,(171) 555-6750,(171) 555-7788,WA1 1DP,
+5,Urras Shop,Urra Gurra Aktersnurra,Gurra Aktersnurra,Luleå,Sweden,3,Berguvsvägen  8,0921-12 34 67,0921-12 34 65,S-958 22,
+6,Man Kleider,Herman Hinschler,Hinschler,Mannheim,Germany,1,Forsterstr. 57,0621-08924,0621-08460,68306,
+7,Menàge à Trois,Julie Binoché,Binoché,Strasbourg,France,1,"24, place Kléber",88.60.15.32,88.60.15.31,67000,
+8,Las Corbatas,Julio Iglesias,Iglesias,Madrid,Spain,1,"C/ de Don Quijote, 67",(91) 555 91 99,(91) 555 22 82,28023,
+9,La Legion Mercenaire,Bernard de Gaule,de Gaule,Marseille,France,1,"12, rue des Bouchers",91.24.45.41,91.24.45.40,13008,
+10,Big Foot Shoes,James Hendersson,Hendersson,Tsawassen,Canada,2,23 Tsawassen Blvd.,(604) 555-3745,(604) 555-4729,T2F 8M4,BC
+11,Shoe Expert,David Foot,Foot,London,UK,1,Fauntleroy Circus,,(171) 555-1212,EC2 5NT,
+12,Los Pantalones Magicos,Victoria Abril,Abril,Buenos Aires,Argentina,4,Plaza de Mayo 6,(1) 135-4892,(1) 135-5555,1010,
+13,Los Sombreros Gigantes,Speedy Gonzales,Gonzales,México D.F.,Mexico,2,El Barrio Chino 12,(5) 555-7293,(5) 555-3392,5021,
+14,Das Alpen Shoe,Alfred Neumann,Neumann,Bern,Switzerland,1,Hauptstr. 29,,0452-076545,3012,
+15,Tendha do Flamengo,Edson Arantes do Nascimento,Arantes do Nascimento,São Paulo,Brazil,4,"Av. dos Lusíadas, 23",,(11) 555-7647,05432-043,
+16,The sharped dressed man,Ian Wright,Wright,London,UK,1,"Berkeley Gardens
+12  Brewery",(171) 555-9199,(171) 555-2282,WX1 6LT,
+17,Gluderstedt,Lars von Holstein,von Holstein,Aachen,Germany,1,Walserweg 21,0241-059428,0241-039123,52066,
+18,Aujourd´hui,Pierre Chardin,Chardin,Nantes,France,1,"67, rue des Cinquante Otages",40.67.89.89,40.67.88.88,44000,
+19,Th Fashing,Greg Thatcher,Thatcher,London,UK,1,35 King George,(171) 555-3373,(171) 555-0297,WX1 6LT,
+20,Ski Store,Lars Saalbach,Saalbach,Graz,Austria,1,Kirchgasse 6,7675-3426,7675-3425,8010,
+21,Cloe do Pau,Romario do Sauza,do Sauza,São Paulo,Brazil,4,"Rua Orós, 92",,(11) 555-9857,05442-030,
+22,La Camisas Cansadas,Filemón,-,Madrid,Spain,1,"C/ Moralzarzal, 86",(91) 555 55 93,(91) 555 94 44,28023,
+23,Champes,Jaques Wilneuve,Wilneuve,Lille,France,1,"184, chaussée de Tournai",20.16.10.17,20.16.10.16,59000,
+24,Sport & Fritid AB,Linda Haglund,Haglund,Bräcke,Sweden,3,Åkergatan 24,,0695-34 67 21,S-844 67,
+25,Halle Köln,Dieter Köln,Köln,München,Germany,1,Berliner Platz 43,089-0877451,089-0877310,80805,
+26,Le Sais de Rión,Jeanne d´Anjou,d´Anjou,Nantes,France,1,"54, rue Royale",40.32.21.20,40.32.21.21,44000,
+27,Il Pantaloni di la Cammorra,Don Corleone,Corleone,Torino,Italy,1,Via Monte Bianco 34,011-4988261,011-4988260,10100,
+28,El Traige do Benfica,Vitor Baiha,Baiha,Lisboa,Portugal,1,Jardim das rosas n. 32,(1) 354-2535,(1) 354-2534,1675,
+29,El Chandal del Barca,Jusep del pep,del pep,Barcelona,Spain,1,"Rambla de Cataluña, 23",(93) 203 4561,(93) 203 4560,8022,
+30,Los Trajes de Matador,El Cordobes,Cordobes,Sevilla,Spain,1,"Finca La Campana, 33",,(95) 555 82 82,41101,
+31,Paintho da Gama,Anna Figo,Figo,Campinas,Brazil,4,"Av. Brasil, 442",,(11) 555-9482,04876-786,
+32,The Corner Store,Ross The Boss,The Boss,Eugene,USA,2,2732 Baker Blvd.,,(503) 555-7555,97403,OR
+33,El Abrigo Mortal,Antonio Palmer Amer,Palmer Amer,Caracas,Venezuela,4,5ª Ave. Los Palos Grandes,(2) 283-3397,(2) 283-2951,1081,
+34,El Carnevale,Joe do Pintho,do Pintho,Rio de Janeiro,Brazil,4,"Rua do Paço, 67",(21) 555-8765,(21) 555-0091,05454-876,
+35,El Zapato Rojo,Nicolas Balines,Balines,San Cristóbal,Venezuela,4,Carrera 22 con Ave. Carlos Soublette #8-35,(5) 555-1948,(5) 555-1340,5022,
+36,Pulp Toxedos,Marcellus Wallace,Wallace,Elgin,USA,2,"City Center Plaza
+516 Main St.",(503) 555-2376,(503) 555-6874,97827,IL
+37,Boleros,Robert Bolero,Bolero,Cork,Ireland,1,8 Johnstown Road,29673333,2967542,12580,
+38,King Size Clothes,Al Yankovic,Yankovic,Cowes,UK,1,"Garden House
+Crowther Way",,(198) 555-8888,PO31 7PJ,
+39,Noch Einmal GMBH,Dieter Rummernige,Rummernige,Brandenburg,Germany,1,Maubelstr. 90,,0555-09876,14776,
+40,La Boheme,Philippe de Laval,de Laval,Versailles,France,1,"67, avenue de l'Europe",30.59.85.11,30.59.84.10,78000,
+41,Elle Fashion & Design,Louise Davu,Davu,Toulouse,France,1,1 rue Alsace-Lorraine,61.77.61.11,61.77.61.10,31000,
+42,Millenium,Joe Barry,Barry,Vancouver,Canada,2,1900 Oak St.,(604) 555-7293,(604) 555-3392,V3F 2K1,BC
+43,For The Dark Night,Klaus Tarantino,Tarantino,Walla Walla,USA,2,12 Orchestra Terrace,(509) 555-6221,(509) 555-7969,99362,WA
+44,Warp AG,Klaus Deum,Deum,Frankfurt a.M.,Germany,1,Magazinweg 7,069-0245874,069-0245984,60528,
+45,Bobby Socks,Vincent Vega,Vega,San Francisco,USA,2,"87 Polk St.
+Suite 5",,(415) 555-5938,94117,CA
+46,Los Vatos Locos,Tony Montana,Montana,Barquisimeto,Venezuela,4,Carrera 52 con Ave. Bolívar #65-98 Llano Largo,(9) 331-7256,(9) 331-6954,3508,
+47,El Pirata,Andrés Barbanegra,Barbanegra,I. de Margarita,Venezuela,4,Ave. 5 de Mayo Porlamar,(8) 34-93-93,(8) 34-56-12,4980,
+48,Too Hot 4U,Andrea Pamelsson,Pamelsson,Portland,USA,2,89 Chiaroscuro Rd.,(503) 555-9646,(503) 555-9573,97219,OR
+49,La Moda d'il Futuri,Luca Brassi,Brassi,Bergamo,Italy,1,Via Ludovico il Moro 22,035-640231,035-640230,24100,
+50,De la Vita,Marco Van Deum,Van Deum,Bruxelles,Belgium,1,Rue Joseph-Bens 532,(02) 201 24 68,(02) 201 24 67,B-1180,
+51,Davenport Fashion,James Belucci,Belucci,Montréal,Canada,2,43 rue St. Laurent,(514) 555-8055,(514) 555-8054,H1J 1C3,QC
+52,Kohl Industries AG,Helmuth Klein,Klein,Leipzig,Germany,1,Heerstr. 22,,0342-023176,4179,
+53,Fawtly Towers,John Cleez,Cleez,London,UK,1,"South House
+300 Queensbridge",(171) 555-2530,(171) 555-7733,SW7 1RZ,
+54,Los Espandrilos Fantasticos,Don Gerardo,Gerardo,Buenos Aires,Argentina,4,"La Colomina la buena vista
+Piso 20-A",(1) 135-5535,(1) 135-5333,1010,
+55,SSS-Sport Shoes Store,Al Bundy,Bundy,Anchorage,USA,2,2743 Bering St.,(907) 555-2880,(907) 555-7584,99508,AK
+56,Casual Clothing,Herman Schlusse,Schlusse,Köln,Germany,1,Mehrheimerstr. 369,0221-0765721,0221-0644327,50739,
+57,Jazz Style Fashion& Art,Dizzi Gillespi,Gillespi,Paris,France,1,"265, boulevard Charonne",(1) 42.34.22.77,(1) 42.34.22.66,75012,
+58,La Moda Pasada,Francisca Font Barceló,Font Barceló,México D.F.,Mexico,2,Calle Dr. Jorge Cash 321,(5) 545-3745,(5) 552-3745,5033,
+59,Extrawagens,Herbert Bernstorf,Bernstorf,Salzburg,Austria,1,Geislweg 14,6562-9723,6562-9722,5020,
+60,La Roba do Santho,Leopoldo Samba,Samba,Lisboa,Portugal,1,Estrada da saúde n. 58,,(1) 356-5634,1756,
+61,Copacabana,Giovanni Santhos,Santhos,Rio de Janeiro,Brazil,4,"Rua da Panificadora, 12",(21) 555-4545,(21) 555-4252,02389-673,
+62,Roba di Piel,Jorge Alemaio,Alemaio,São Paulo,Brazil,4,"Alameda dos Canàrios, 891",,(11) 555-1189,05487-020,
+63,Grunewald,George Essen,Essen,Cunewalde,Germany,1,Taucherstraße 10,,0372-035188,1307,
+64,Ropa total,Emerson Fittipaldi,Fittipaldi,Buenos Aires,Argentina,4,Av. del Libertador 900,(1) 123-5556,(1) 123-5555,1010,
+65,X-Site,Malcolm X,X,Albuquerque,USA,2,2817 Milton Dr.,(505) 555-3620,(505) 555-5939,87110,NM
+66,Sport Shop,Anna Bella,Bella,Reggio Emilia,Italy,1,Strada Provinciale 124,0522-556722,0522-556721,42100,
+67,Da Bikini Expertu,Thomá Lindao,Lindao,Rio de Janeiro,Brazil,4,"Av. Copacabana, 267",,(21) 555-3412,02389-890,
+68,Golden Design Group,Carl Perry,Perry,Genève,Switzerland,1,Grenzacherweg 237,,0897-034214,1203,
+69,La Moda Alucinante,Emilio Ilegal,Ilegal,Madrid,Spain,1,"Gran Vía, 1",(91) 745 6210,(91) 745 6200,28001,
+70,Alles Lusekofter,Akkurat Jonny,Jonny,Stavern,Norway,3,Erling Skakkes gate 78,07-98 92 47,07-98 92 35,4110,
+71,Sunny Ski Store,Perry Farell,Farell,Boise,USA,2,187 Suffolk Ln.,,(208) 555-8097,83720,ID
+72,Fast Sunglasses,Ray Banned,Banned,London,UK,1,90 Wadhurst Rd.,(171) 555-5646,(171) 555-1717,OX15 4NB,
+73,Rode & Vite,Preben Elkjaer,Elkjaer,København,Denmark,3,Vinbæltet 34,31133557,31123456,1734,
+74,Chateau de Ville,André Millard,Millard,Paris,France,1,"25, rue Lauriston",(1) 47.55.60.20,(1) 47.55.60.10,75016,
+75,Macalena,Paul Smith,Smith,Lander,USA,2,P.O. Box 555,(307) 555-6525,(307) 555-4680,82520,WY
+76,Belgium Black Jeans,Cheril Cow,Cow,Charleroi,Belgium,1,"Boulevard Tirou, 255",(071) 23 67 22 21,(071) 23 67 22 20,B-6000,
+77,Eye Fashion,Charles Oakley,Oakley,Portland,USA,2,"89 Jefferson Way
+Suite 2",,(503) 555-3612,97201,OR
+78,TTT-The Ticky Tie,Mary Stone,Stone,Butte,USA,2,55 Grizzly Peak Rd.,(406) 555-8083,(406) 555-5834,59801,MT
+79,Boombastic,Heinz Disco,Disco,Münster,Germany,1,Luisenstr. 48,0251-035695,0251-031259,44087,
+80,Don Balón,Peloto Gomez,Gomez,México D.F.,Mexico,2,Avda. Azteca 123,,(5) 555-2933,5033,
+81,Merced do Vaile,Mercedes Couto,Couto,São Paulo,Brazil,4,"Av. Inês de Castro, 414",(11) 555-2168,(11) 555-2167,05442-030,
+82,Bond Ltd,Mark Stark,Stark,Kirkland,USA,2,722 DaVinci Blvd.,(206) 555-2174,(206) 555-8257,98034,WA
+84,Art et Fashion,Pierre Robert,Robert,Lyon,France,1,"2, rue du Commerce",78.32.54.87,78.32.54.86,69004,
+85,Pour l´homme,Henry Renault,Renault,Reims,France,1,59 rue de l'Abbaye,26.47.15.11,26.47.15.10,51100,
+86,Autokleider,Ralf Schumaker,Schumaker,Stuttgart,Germany,1,Adenauerallee 900,0711-035428,0711-020361,70563,
+87,Perkii Urkii,Miiko Heikillä,Heikillä,Oulu,Finland,3,Torikatu 38,981-443655,981-443655,90110,
+88,Da Santho Cosmethia,Mariah Erdi,Erdi,Resende,Brazil,4,"Rua do Mercado, 12",,(14) 555-8122,08737-363,
+89,Nirvana Stores,Alice Chain,Chain,Seattle,USA,2,"305 - 14th Ave. S.
+Suite 3B",(206) 555-4115,(206) 555-4112,98128,WA
+90,Leningrad Cowboys Shop,Reijoo Haajanen,Haajanen,Helsinki,Finland,3,Keskuskatu 45,90-224 8858,90-224 8858,21240,
+91,Slotzy Danz,Boniekk Wallessa,Wallessa,Warszawa,Poland,1,ul. Filtrowa 68,(26) 642-7012,(26) 642-7012,01-012,
+94,Modehuset Abel,Dennis Olsen,Olsen,Århus,Denmark,3,Smagsløget 45,86223344,86213243,8200,
+127,Stephanies,Staffan Blond,Blond,Stockholm,Sweden,3,Gatauppochner. 1,(8) 11 22 33,(8) 10 20 30,11111,
